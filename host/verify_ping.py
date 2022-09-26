@@ -5,7 +5,7 @@ if __name__ == "__main__":
     host = '192.168.137.1'
     ubuntu_VM = '192.168.137.209'
     windows_VM = '192.168.137.67'
-    gateway = '192.168.137.1'
+    gateway = '8.8.8.8'
     blackhole = '1.2.3.4'
     host_Ether = '02:00:4c:4f:4f:50'
     ubuntu_Ether = '08:00:27:e0:e3:5a'
@@ -14,10 +14,13 @@ if __name__ == "__main__":
     ip = scapy.IP(src = gateway ,dst = ubuntu_VM)
     icmp = scapy.ICMP()
     count = 0
+    scapy.sendp(ether/ip/icmp/scapy.Padding('\x00'*1400), iface = '以太网 3')
+    # send 1400 bytes received 60 bytes in ubuntu_VM
+    '''
     while(1):
         time.sleep(0.05)
         scapy.sendp(ether/ip/icmp/scapy.Padding('\x00'*1500), iface = '以太网 3')
         count += 1
         print(count)
-   
+   '''
 
