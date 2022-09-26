@@ -1,0 +1,41 @@
+# ***Example Script***
+# revision 5/14/13
+#
+# '#' in the first column indicates a comment line
+# Always start a script with !PUSH to save all the window control variables
+# End the script with !POP to restore them.
+#
+!PUSH
+#IP Header definitions
+DESTIP=192.168.137.1
+TOS=ROUTINE
+IDENTIFICATION_FIELD_VALUE=45
+#fragmentation flags
+DF_FLAG=0
+MF_FLAG=0
+OFFSET=0
+#TTL etc.
+TTL=124
+OVERRIDE_IP_CHECKSUM=0
+#
+!DISPLAY PT UDP Test Script
+#!SLEEP 1000
+# now send 5 sets of UDP packets or comment out forloopstart/end and uncomment infiniteloopstart/end
+!FORLOOPSTART 1000
+#!INFINITELOOPSTART
+UDP_SOURCE_PORT=432
+UDP_DEST_PORT=124
+UDP_OVERRIDE_CHECKSUM=0
+UDP_OVERRIDE_CHECKSUM_VALUE=0
+#  set UDP_DATAFROMFILE to 1 to use data from a file or 0 to use UDP_DATA only
+UDP_DATAFROMFILE=0
+UDP_DATA=This is Voice Data
+DSCP=5
+DS_BIT3=0
+DS_BIT4=0
+DS_BIT5=1
+!SEND 1 0 UDP
+!FORLOOPEND
+#!INFINITELOOPEND
+!POP
+#
