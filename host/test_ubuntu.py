@@ -32,8 +32,12 @@ if __name__ == "__main__":
     icmp.type = 3 # Destination Unreachable
     # set ICMP code Fragmentation needed but DF set 4
     icmp.code = 4 # Fragmentation needed
-    icmp.nexthopmtu = 800
-
+    icmp.nexthopmtu = 1200 
+    '''
+    1) mtu can't be enlarged
+    2) if the nexthopmtu is less than the min MTU, the path MTU is set as min MTU
+    
+    '''
     # Construct the Inner IP embedded into the ICMP error message to simulate
     # the packet which caused the ICMP error
     ip_orig = scapy.IP()
@@ -111,7 +115,6 @@ if __name__ == "__main__":
     hex_packet = hex_packet.__class__(bytes(hex_packet))
     hex_packet.display()
     # scapy.sendp(packet, iface = "以太网 3")
-    scapy.sendp(hex_packet, iface = '以太网 3')
+    scapy.sendp(hex_packet, iface = '以太网 4')
     # print((4*4*3+4*3.7*4+4*3+4*3.3+1*4+2*3.7+3*2.7+3*3.3+2*3+4*3.7+3.7+4)/(28+26))
-    print((4*4*3+4*3.7*4+5*3.3)/(28+5))
 
